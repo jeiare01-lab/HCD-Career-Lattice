@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function HCDLatticeComplete() {
   const [activeTab, setActiveTab] = useState('explorer');
   const [selectedPillar, setSelectedPillar] = useState('tvet');
-  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [selectedFamily, setSelectedFamily] = useState(null);
 
   const NAVY = '#0D1B3D';
   const ORANGE = '#E65100';
@@ -16,72 +15,151 @@ export default function HCDLatticeComplete() {
       fullName: 'Technical Vocational Education & Training',
       icon: '🛠️',
       color: '#E65100',
-      roles: [
-        { id: 'TVET-001', title: 'Training Assistant', level: 'SPECIALIST', jg: 'JG1' },
-        { id: 'TVET-002', title: 'Training Instructor', level: 'SPECIALIST', jg: 'JG2' },
-        { id: 'TVET-003', title: 'Senior Instructor', level: 'GENERALIST', jg: 'JG3' },
-        { id: 'TVET-004', title: 'Curriculum Specialist', level: 'GENERALIST', jg: 'JG4' },
-        { id: 'TVET-005', title: 'Training Program Manager', level: 'LEAD', jg: 'JG5' },
-        { id: 'TVET-006', title: 'Head of Curriculum', level: 'LEAD', jg: 'JG6' },
-        { id: 'TVET-007', title: 'TVET Program Manager', level: 'BUSINESS PARTNER', jg: 'JG7' },
-        { id: 'TVET-008', title: 'TVET Operations Manager', level: 'BUSINESS PARTNER', jg: 'JG8' },
-        { id: 'TVET-009', title: 'TVET Director', level: 'STRATEGIC PARTNER', jg: 'JG9' },
-        { id: 'TVET-010', title: 'Head of TVET', level: 'STRATEGIC PARTNER', jg: 'JG10' },
-      ]
+      families: {
+        'SPECIALIST (JG2-JG3)': [
+          { title: 'TAS II', jg: 'JG2', function: 'Training & Assessment' },
+          { title: 'TAs III', jg: 'JG3', function: 'Training & Assessment' },
+          { title: 'CADA II', jg: 'JG2', function: 'Certification & Documentation' },
+          { title: 'CADA III', jg: 'JG3', function: 'Certification & Documentation' },
+        ],
+        'GENERALIST (JG4-JG6)': [
+          { title: 'Trainer I', jg: 'JG4', function: 'Training & Assessment' },
+          { title: 'Trainer II', jg: 'JG5', function: 'Training & Assessment' },
+          { title: 'Register I', jg: 'JG4', function: 'Certification & Documentation' },
+          { title: 'Register II', jg: 'JG5', function: 'Certification & Documentation' },
+          { title: 'GENERALIST, SAO I', jg: 'JG5', function: 'Assessment' },
+          { title: 'GENERALIST, SAO II', jg: 'JG6', function: 'Assessment' },
+        ],
+        'LEAD (JG7-JG9)': [
+          { title: 'Lead TA I', jg: 'JG7', function: 'Training & Assessment' },
+          { title: 'Lead CAD Controller I', jg: 'JG7', function: 'Certification & Documentation' },
+          { title: 'Lead AGO I', jg: 'JG8', function: 'Assessment' },
+          { title: 'Lead TA II', jg: 'JG8', function: 'Training & Assessment' },
+          { title: 'Lead TA III', jg: 'JG9', function: 'Training & Assessment' },
+        ],
+        'BUSINESS PARTNER (JG10-JG12)': [
+          { title: 'TVET Supervisor', jg: 'JG10', function: 'Training & Assessment' },
+          { title: 'TVET Supervisor', jg: 'JG11', function: 'Certification & Documentation' },
+          { title: 'Asst. TVET Supervisor', jg: 'JG10', function: 'Assessment' },
+          { title: 'Section Head, TVET', jg: 'JG11', function: 'Multiple' },
+        ],
+        'STRATEGIC PARTNER (JG13-JG15)': [
+          { title: 'Department Head, TVET', jg: 'JG13', function: 'Strategic' },
+          { title: 'Manager, TVET', jg: 'JG14', function: 'Management' },
+          { title: 'Director, TVET', jg: 'JG15', function: 'Executive' },
+        ],
+      }
     },
     shs: {
       name: 'SHS',
-      fullName: 'Senior High School',
+      fullName: 'Academics - Senior High School',
       icon: '📚',
       color: '#00B4D8',
-      roles: [
-        { id: 'SHS-001', title: 'Educational Support Officer', level: 'SPECIALIST', jg: 'JG1' },
-        { id: 'SHS-002', title: 'Educator', level: 'SPECIALIST', jg: 'JG2' },
-        { id: 'SHS-003', title: 'Senior Educator', level: 'GENERALIST', jg: 'JG3' },
-        { id: 'SHS-004', title: 'Guidance Counselor', level: 'GENERALIST', jg: 'JG4' },
-        { id: 'SHS-005', title: 'Program Coordinator', level: 'LEAD', jg: 'JG5' },
-        { id: 'SHS-006', title: 'Head of Programs', level: 'LEAD', jg: 'JG6' },
-        { id: 'SHS-007', title: 'SHS Program Manager', level: 'BUSINESS PARTNER', jg: 'JG7' },
-        { id: 'SHS-008', title: 'SHS Operations Manager', level: 'BUSINESS PARTNER', jg: 'JG8' },
-        { id: 'SHS-009', title: 'SHS Director', level: 'STRATEGIC PARTNER', jg: 'JG9' },
-        { id: 'SHS-010', title: 'Head of Education', level: 'STRATEGIC PARTNER', jg: 'JG10' },
-      ]
+      families: {
+        'SPECIALIST (JG2-JG3)': [
+          { title: 'AI Associate II', jg: 'JG2', function: 'Academic Instruction' },
+          { title: 'AI Associate III', jg: 'JG3', function: 'Academic Instruction' },
+          { title: 'SAA II', jg: 'JG2', function: "Student's Affairs" },
+          { title: 'SAA III', jg: 'JG3', function: "Student's Affairs" },
+        ],
+        'GENERALIST (JG4-JG6)': [
+          { title: 'Teacher I', jg: 'JG4', function: 'Academic Instruction' },
+          { title: 'Teacher II', jg: 'JG5', function: 'Academic Instruction' },
+          { title: 'GENERALIST, SAO I', jg: 'JG5', function: "Student's Affairs" },
+          { title: 'GENERALIST, SAO II', jg: 'JG6', function: "Student's Affairs" },
+          { title: 'Lead AGO I', jg: 'JG6', function: 'Guidance & Counselling' },
+        ],
+        'LEAD (JG7-JG9)': [
+          { title: 'Lead Teacher I', jg: 'JG7', function: 'Academic Instruction' },
+          { title: 'Lead Teacher II', jg: 'JG8', function: 'Academic Instruction' },
+          { title: 'Lead AGO II', jg: 'JG8', function: 'Guidance & Counselling' },
+          { title: 'Lead AGO III', jg: 'JG9', function: 'Guidance & Counselling' },
+        ],
+        'BUSINESS PARTNER (JG10-JG12)': [
+          { title: 'SHS Supervisor', jg: 'JG10', function: 'Academic Instruction' },
+          { title: 'SHS Supervisor', jg: 'JG11', function: "Student's Affairs" },
+          { title: 'Section Head, SHS', jg: 'JG11', function: 'Multiple' },
+        ],
+        'STRATEGIC PARTNER (JG13-JG15)': [
+          { title: 'Department Head, SHS', jg: 'JG13', function: 'Strategic' },
+          { title: 'Manager, SHS', jg: 'JG14', function: 'Management' },
+          { title: 'Director, SHS', jg: 'JG15', function: 'Executive' },
+        ],
+      }
     },
     shared_services: {
       name: 'Shared Services',
-      fullName: 'HR, Finance, IT, Operations',
+      fullName: 'Administration & Support Functions',
       icon: '🏢',
       color: '#06A87D',
-      roles: [
-        { id: 'SS-001', title: 'Administrative Assistant', level: 'SPECIALIST', jg: 'JG1' },
-        { id: 'SS-002', title: 'Coordinator', level: 'SPECIALIST', jg: 'JG2' },
-        { id: 'SS-003', title: 'Senior Coordinator', level: 'GENERALIST', jg: 'JG3' },
-        { id: 'SS-004', title: 'Specialist', level: 'GENERALIST', jg: 'JG4' },
-        { id: 'SS-005', title: 'Senior Specialist', level: 'LEAD', jg: 'JG5' },
-        { id: 'SS-006', title: 'Lead Specialist', level: 'LEAD', jg: 'JG6' },
-        { id: 'SS-007', title: 'Manager', level: 'BUSINESS PARTNER', jg: 'JG7' },
-        { id: 'SS-008', title: 'Senior Manager', level: 'BUSINESS PARTNER', jg: 'JG8' },
-        { id: 'SS-009', title: 'Director', level: 'STRATEGIC PARTNER', jg: 'JG9' },
-        { id: 'SS-010', title: 'Head of Function', level: 'STRATEGIC PARTNER', jg: 'JG10' },
-      ]
+      families: {
+        'SPECIALIST (JG2-JG3)': [
+          { title: 'ORA II', jg: 'JG2', function: 'Administration & Governance' },
+          { title: 'ORA III', jg: 'JG3', function: 'Administration & Governance' },
+          { title: 'Registrar I', jg: 'JG2', function: 'Registrar' },
+          { title: 'MAC CO I', jg: 'JG2', function: 'Marketing & Communications' },
+        ],
+        'GENERALIST (JG4-JG6)': [
+          { title: 'Generalist I', jg: 'JG4', function: 'Administration & Governance' },
+          { title: 'Generalist II', jg: 'JG5', function: 'Administration & Governance' },
+          { title: 'Librarian I', jg: 'JG4', function: 'Resource Center' },
+          { title: 'Librarian II', jg: 'JG5', function: 'Resource Center' },
+          { title: 'Generalist I, EBD', jg: 'JG5', function: 'Multiple' },
+        ],
+        'LEAD (JG7-JG9)': [
+          { title: 'Lead MAC CO I', jg: 'JG7', function: 'Marketing & Communications' },
+          { title: 'Lead MAC CO II', jg: 'JG8', function: 'Marketing & Communications' },
+          { title: 'Lead PAG', jg: 'JG8', function: 'Administration' },
+          { title: 'Lead PMO I', jg: 'JG8', function: 'Projects' },
+        ],
+        'BUSINESS PARTNER (JG10-JG12)': [
+          { title: 'MAC Supervisor', jg: 'JG10', function: 'Marketing & Communications' },
+          { title: 'Lead MAC Supervisor', jg: 'JG11', function: 'Administration' },
+          { title: 'Section Head, MAC', jg: 'JG11', function: 'Multiple' },
+        ],
+        'STRATEGIC PARTNER (JG13-JG15)': [
+          { title: 'Department Head, MAC', jg: 'JG13', function: 'Strategic' },
+          { title: 'Manager, MAC', jg: 'JG14', function: 'Management' },
+          { title: 'Director, MAC', jg: 'JG15', function: 'Executive' },
+        ],
+      }
     },
     corp_foundation: {
       name: 'Corporate Foundation',
       fullName: 'CSR & Workforce Development',
       icon: '🤝',
       color: '#D62828',
-      roles: [
-        { id: 'CF-001', title: 'Program Support Officer', level: 'SPECIALIST', jg: 'JG1' },
-        { id: 'CF-002', title: 'Program Coordinator', level: 'SPECIALIST', jg: 'JG2' },
-        { id: 'CF-003', title: 'Senior Coordinator', level: 'GENERALIST', jg: 'JG3' },
-        { id: 'CF-004', title: 'Program Manager', level: 'GENERALIST', jg: 'JG4' },
-        { id: 'CF-005', title: 'Senior Program Manager', level: 'LEAD', jg: 'JG5' },
-        { id: 'CF-006', title: 'Head of Programs', level: 'LEAD', jg: 'JG6' },
-        { id: 'CF-007', title: 'Foundation Manager', level: 'BUSINESS PARTNER', jg: 'JG7' },
-        { id: 'CF-008', title: 'Senior Foundation Manager', level: 'BUSINESS PARTNER', jg: 'JG8' },
-        { id: 'CF-009', title: 'Foundation Director', level: 'STRATEGIC PARTNER', jg: 'JG9' },
-        { id: 'CF-010', title: 'Head of Foundation', level: 'STRATEGIC PARTNER', jg: 'JG10' },
-      ]
+      families: {
+        'SPECIALIST (JG2-JG3)': [
+          { title: 'BuDA II', jg: 'JG2', function: 'Projects & Grants' },
+          { title: 'BuDA III', jg: 'JG3', function: 'Projects & Grants' },
+          { title: 'LeA II', jg: 'JG2', function: 'Linkage & Engagement' },
+          { title: 'LeA III', jg: 'JG3', function: 'Linkage & Engagement' },
+        ],
+        'GENERALIST (JG4-JG6)': [
+          { title: 'Generalist I', jg: 'JG4', function: 'Projects & Grants' },
+          { title: 'Generalist II', jg: 'JG5', function: 'Projects & Grants' },
+          { title: 'Generalist I, EBD', jg: 'JG4', function: 'Enterpries & Business Development' },
+          { title: 'Generalist I, LeD', jg: 'JG5', function: 'Linkage & Engagement' },
+          { title: 'Generalist I, LeA', jg: 'JG4', function: 'Linkage & Engagement' },
+        ],
+        'LEAD (JG7-JG9)': [
+          { title: 'Lead PAG', jg: 'JG7', function: 'Projects & Grants' },
+          { title: 'Lead PMO I', jg: 'JG8', function: 'Projects & Grants' },
+          { title: 'Lead EBD', jg: 'JG8', function: 'Enterpries & Business Development' },
+          { title: 'Lead LeD I', jg: 'JG8', function: 'Linkage & Engagement' },
+        ],
+        'BUSINESS PARTNER (JG10-JG12)': [
+          { title: 'Staff, Supervisor', jg: 'JG10', function: 'Projects & Grants' },
+          { title: 'Staff, Supervisor', jg: 'JG11', function: 'Enterpries & Business Development' },
+          { title: 'Section Head, LeD', jg: 'JG11', function: 'Linkage & Engagement' },
+        ],
+        'STRATEGIC PARTNER (JG13-JG15)': [
+          { title: 'Department Head, CorF', jg: 'JG13', function: 'Strategic' },
+          { title: 'Manager, CorF', jg: 'JG14', function: 'Management' },
+          { title: 'Director, CorF', jg: 'JG15', function: 'Executive' },
+        ],
+      }
     }
   };
 
@@ -91,15 +169,15 @@ export default function HCDLatticeComplete() {
     <div style={{ fontFamily: 'Calibri, sans-serif', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <div style={{ backgroundColor: NAVY, color: 'white', padding: '30px', textAlign: 'center' }}>
         <h1 style={{ margin: 0, fontSize: '32px' }}>HCD CAREER LATTICE LIVE</h1>
-        <p style={{ margin: '10px 0 0 0', fontSize: '14px', opacity: 0.9 }}>All Pillars | 5 Levels | 21 Competencies | 40 Roles</p>
+        <p style={{ margin: '10px 0 0 0', fontSize: '14px', opacity: 0.9 }}>All Pillars | 5 Job Families | JG2-JG15 | Exact Role Titles</p>
       </div>
 
       <div style={{ display: 'flex', backgroundColor: CREAM, borderBottom: `3px solid ${ORANGE}` }}>
         {[
           { id: 'explorer', label: '🔍 Role Explorer' },
-          { id: 'competencies', label: '📊 Competency Matrix' },
-          { id: 'assessment', label: '✅ Self Assessment' },
-          { id: 'paths', label: '🎯 Career Paths' }
+          { id: 'competencies', label: '📊 Job Families' },
+          { id: 'assessment', label: '✅ Career Grades' },
+          { id: 'paths', label: '🎯 Functions' }
         ].map(tab => (
           <button
             key={tab.id}
@@ -147,64 +225,62 @@ export default function HCDLatticeComplete() {
             <h2 style={{ color: NAVY, marginBottom: '10px' }}>
               {currentPillar.icon} {currentPillar.fullName}
             </h2>
-            <p style={{ color: '#666', marginBottom: '20px' }}>Browse roles and explore career progression across all 5 levels</p>
-            {['SPECIALIST', 'GENERALIST', 'LEAD', 'BUSINESS PARTNER', 'STRATEGIC PARTNER'].map(level => {
-              const rolesInLevel = currentPillar.roles.filter(r => r.level === level);
-              return (
-                <div key={level} style={{ marginBottom: '20px' }}>
-                  <div 
-                    style={{ backgroundColor: NAVY, color: 'white', padding: '12px 16px', borderRadius: '4px', fontWeight: 'bold', marginBottom: '12px', cursor: 'pointer' }} 
-                    onClick={() => setSelectedLevel(selectedLevel === level ? null : level)}
-                  >
-                    {level} ({rolesInLevel.length} roles)
-                  </div>
-                  {selectedLevel === level && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px' }}>
-                      {rolesInLevel.map(role => (
-                        <div key={role.id} style={{ border: `2px solid ${ORANGE}`, borderRadius: '6px', padding: '12px', backgroundColor: CREAM }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
-                            <h4 style={{ margin: 0, color: NAVY, fontSize: '13px' }}>{role.title}</h4>
-                            <span style={{ backgroundColor: ORANGE, color: 'white', padding: '2px 6px', borderRadius: '3px', fontSize: '11px', fontWeight: 'bold' }}>{role.jg}</span>
-                          </div>
-                          <p style={{ margin: 0, fontSize: '11px', color: '#666' }}>{role.id}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+            <p style={{ color: '#666', marginBottom: '20px' }}>Browse all roles by job family with exact titles and grade levels</p>
+            {Object.entries(currentPillar.families).map(([family, roles]) => (
+              <div key={family} style={{ marginBottom: '20px' }}>
+                <div 
+                  style={{ backgroundColor: NAVY, color: 'white', padding: '12px 16px', borderRadius: '4px', fontWeight: 'bold', marginBottom: '12px', cursor: 'pointer' }} 
+                  onClick={() => setSelectedFamily(selectedFamily === family ? null : family)}
+                >
+                  {family} ({roles.length} roles)
                 </div>
-              );
-            })}
+                {selectedFamily === family && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+                    {roles.map((role, idx) => (
+                      <div key={idx} style={{ border: `2px solid ${ORANGE}`, borderRadius: '6px', padding: '12px', backgroundColor: CREAM }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
+                          <h4 style={{ margin: 0, color: NAVY, fontSize: '14px', fontWeight: 'bold' }}>{role.title}</h4>
+                          <span style={{ backgroundColor: ORANGE, color: 'white', padding: '2px 8px', borderRadius: '3px', fontSize: '11px', fontWeight: 'bold' }}>{role.jg}</span>
+                        </div>
+                        <p style={{ margin: '5px 0', fontSize: '12px', color: '#666' }}>📌 {role.function}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         )}
 
         {activeTab === 'competencies' && (
           <div>
-            <h2 style={{ color: NAVY }}>📊 Competency Framework</h2>
-            <p style={{ color: '#666' }}>21 competencies evolving across 5 career levels</p>
-            <div style={{ backgroundColor: CREAM, padding: '20px', borderRadius: '6px', borderLeft: `5px solid ${ORANGE}` }}>
-              <p>Download the career pathing guides from GitHub for complete competency matrix details</p>
-            </div>
+            <h2 style={{ color: NAVY }}>📊 Job Families Overview</h2>
+            <p style={{ color: '#666', marginBottom: '20px' }}>Five career progression levels from entry to executive</p>
+            {['SPECIALIST (JG2-JG3)', 'GENERALIST (JG4-JG6)', 'LEAD (JG7-JG9)', 'BUSINESS PARTNER (JG10-JG12)', 'STRATEGIC PARTNER (JG13-JG15)'].map(family => (
+              <div key={family} style={{ padding: '15px', backgroundColor: CREAM, borderRadius: '6px', marginBottom: '10px', borderLeft: `5px solid ${ORANGE}` }}>
+                <h3 style={{ color: NAVY, margin: '0 0 5px 0' }}>{family}</h3>
+              </div>
+            ))}
           </div>
         )}
 
         {activeTab === 'assessment' && (
           <div>
-            <h2 style={{ color: NAVY }}>✅ Self-Assessment</h2>
-            <p style={{ color: '#666' }}>Evaluate your competencies and career level</p>
+            <h2 style={{ color: NAVY }}>✅ Career Grades (JG2-JG15)</h2>
+            <p style={{ color: '#666', marginBottom: '20px' }}>Job grades define responsibility levels and compensation</p>
             <div style={{ backgroundColor: CREAM, padding: '20px', borderRadius: '6px', borderLeft: `5px solid ${ORANGE}` }}>
-              <p>Download the pillar-specific assessment tools from GitHub to evaluate yourself on all 21 competencies</p>
+              <p>Each role is assigned a specific job grade (JG2 through JG15) that reflects responsibility level, scope, and compensation band.</p>
             </div>
           </div>
         )}
 
         {activeTab === 'paths' && (
           <div>
-            <h2 style={{ color: NAVY }}>🎯 Career Pathways</h2>
-            <p style={{ color: '#666' }}>Typical progression across career levels</p>
-            {['Technical Specialist Track', 'Management Track', 'Executive Track'].map((path, idx) => (
-              <div key={idx} style={{ padding: '15px', backgroundColor: CREAM, borderRadius: '6px', marginBottom: '10px', borderLeft: `5px solid ${ORANGE}` }}>
-                <h3 style={{ color: NAVY, margin: '0 0 5px 0' }}>{path}</h3>
-                <p style={{ color: '#666', fontSize: '13px', margin: 0 }}>Typical progression with competency development at each stage</p>
+            <h2 style={{ color: NAVY }}>🎯 Career Functions</h2>
+            <p style={{ color: '#666', marginBottom: '20px' }}>Specialized functions within each pillar</p>
+            {['Training & Assessment', 'Certification & Documentation', 'Academic Instruction', 'Administration & Governance', 'Projects & Grants', 'Linkage & Engagement'].map((func, idx) => (
+              <div key={idx} style={{ padding: '12px', backgroundColor: CREAM, borderRadius: '4px', marginBottom: '8px', borderLeft: `5px solid ${ORANGE}` }}>
+                {func}
               </div>
             ))}
           </div>
@@ -213,7 +289,7 @@ export default function HCDLatticeComplete() {
 
       <div style={{ backgroundColor: NAVY, color: 'white', padding: '20px', textAlign: 'center', marginTop: '40px', fontSize: '12px' }}>
         <p style={{ margin: 0 }}>HCD Career Lattice Live | © 2026 Primary Group of Builders</p>
-        <p style={{ margin: '5px 0 0 0', opacity: 0.8 }}>All 4 Pillars | 40 Roles | 5 Levels | 21 Competencies</p>
+        <p style={{ margin: '5px 0 0 0', opacity: 0.8 }}>All Pillars | 5 Job Families | JG2-JG15 Grades | Exact Role Titles</p>
       </div>
     </div>
   );
