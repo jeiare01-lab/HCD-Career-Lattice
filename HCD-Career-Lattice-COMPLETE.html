@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCD Career Lattice Live - Career Development Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #0D1B3D;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #FEF9F3;
+            border-bottom: 3px solid #E65100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background-color: #FEF9F3;
+            color: #0D1B3D;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: #E65100;
+            color: white;
+            font-weight: bold;
+        }
+
+        .pillars {
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pillar-btn {
+            padding: 8px 16px;
+            border: 2px solid;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .pillar-btn.active {
+            color: white;
+            background-color: #E65100;
+            border-color: #E65100;
+        }
+
+        .content {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            color: #0D1B3D;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .family-section {
+            margin-bottom: 20px;
+        }
+
+        .family-header {
+            background-color: #0D1B3D;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .role-card {
+            border: 2px solid #E65100;
+            border-radius: 6px;
+            padding: 12px;
+            background-color: #FEF9F3;
+        }
+
+        .role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .role-title {
+            margin: 0;
+            color: #0D1B3D;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .role-grade {
+            background-color: #E65100;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .role-function {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .function-box {
+            padding: 12px;
+            background-color: #FEF9F3;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border-left: 5px solid #E65100;
+        }
+
+        .footer {
+            background-color: #0D1B3D;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HCD CAREER LATTICE LIVE</h1>
+        <p>7 Pillars | 5 Job Families | JG1-JG15 | Complete Functional Units</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('explorer')">🔍 Role Explorer</button>
+        <button class="tab-btn" onclick="switchTab('competencies')">⭐ Competencies</button>
+        <button class="tab-btn" onclick="switchTab('families')">📊 Job Families</button>
+        <button class="tab-btn" onclick="switchTab('grades')">✅ Job Grades</button>
+        <button class="tab-btn" onclick="switchTab('functions')">🎯 Functions</button>
+        <button class="tab-btn" onclick="switchTab('careerpath')" style="background-color: #E65100; color: white; font-weight: bold;">🚀 Build My Career Path</button>
+    </div>
+
+    <div class="pillars">
+        <button class="pillar-btn active" onclick="selectPillar('tvet')" style="border-color: #E65100; color: #E65100;">🛠️ TVET</button>
+        <button class="pillar-btn" onclick="selectPillar('shs')" style="border-color: #00B4D8; color: #00B4D8;">📚 SHS</button>
+        <button class="pillar-btn" onclick="selectPillar('shared')" style="border-color: #06A87D; color: #06A87D;">🏢 Shared Services</button>
+        <button class="pillar-btn" onclick="selectPillar('corp')" style="border-color: #D62828; color: #D62828;">🤝 CorF</button>
+        <button class="pillar-btn" onclick="selectPillar('seaman')" style="border-color: #0066CC; color: #0066CC;">⛵ SEAMAN</button>
+        <button class="pillar-btn" onclick="selectPillar('coop')" style="border-color: #9933CC; color: #9933CC;">🤝 COOP</button>
+        <button class="pillar-btn" onclick="selectPillar('manpower')" style="border-color: #FF6600; color: #FF6600;">💼 Manpower</button>
+    </div>
+
+    <div class="content">
+        <div id="explorer">
+            <h2>🛠️ Technical Vocational Education & Training</h2>
+            <p>Browse all roles by job family with job grades (JG1-JG15)</p>
+            <div id="explorer-content"></div>
+        </div>
+
+        <div id="competencies" class="hidden">
+            <h2>⭐ Competencies Framework</h2>
+            <p>Complete competencies, duties, responsibilities, and accountability by Job Family</p>
+            <p style="color: #E65100; font-weight: bold; font-size: 13px;">All roles within the same Job Family share the same competencies, duties, and accountability</p>
+            <div id="competencies-framework"></div>
+        </div>
+
+        <div id="families" class="hidden">
+            <h2>📊 Job Families Overview</h2>
+            <p>Five career progression levels from entry to executive</p>
+            <div class="function-box">
+                <h3 style="color: #0D1B3D; margin: 0 0 5px 0;">Specialist</h3>
+                <p style="color: #666; margin: 0; font-size: 13px;">Entry-level positions (JG1-JG3)</p>
+            </div>
+            <div class="function-box">
+                <h3 style="color: #0D1B3D; margin: 0 0 5px 0;">Generalist</h3>
+                <p style="color: #666; margin: 0; font-size: 13px;">Intermediate positions (JG4-JG6)</p>
+            </div>
+            <div class="function-box">
+                <h3 style="color: #0D1B3D; margin: 0 0 5px 0;">Lead</h3>
+                <p style="color: #666; margin: 0; font-size: 13px;">Office-level positions (JG7-JG9)</p>
+            </div>
+            <div class="function-box">
+                <h3 style="color: #0D1B3D; margin: 0 0 5px 0;">Business Partner</h3>
+                <p style="color: #666; margin: 0; font-size: 13px;">Supervisory positions (JG10-JG12)</p>
+            </div>
+            <div class="function-box">
+                <h3 style="color: #0D1B3D; margin: 0 0 5px 0;">Strategic Partner</h3>
+                <p style="color: #666; margin: 0; font-size: 13px;">Managerial positions (JG13-JG15)</p>
+            </div>
+        </div>
+
+        <div id="grades" class="hidden">
+            <h2>✅ Job Grades (JG1-JG15)</h2>
+            <p>Job grades define responsibility levels and compensation bands</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 20px;">
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG1</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG2</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG3</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG4</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG5</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG6</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG7</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG8</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG9</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG10</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG11</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG12</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG13</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG14</div>
+                <div style="padding: 10px; background-color: #FEF9F3; border: 2px solid #E65100; border-radius: 4px; text-align: center; font-weight: bold; color: #0D1B3D;">JG15</div>
+            </div>
+        </div>
+
+        <div id="functions" class="hidden">
+            <h2>🎯 Functional Units</h2>
+            <p>Specialized functions and departments within each pillar</p>
+            <div id="functions-content"></div>
+        </div>
+
+        <div id="careerpath" class="hidden">
+            <h2>🚀 Build My Career Path</h2>
+            <p>Create your personalized career development plan</p>
+            
+            <div style="background-color: #FEF9F3; padding: 20px; border-radius: 6px; border-left: 5px solid #E65100; margin-bottom: 20px;">
+                <h3 style="color: #0D1B3D; margin-bottom: 15px;">Career Path Builder</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #0D1B3D; font-weight: bold; margin-bottom: 5px;">Select Your Pillar:</label>
+                    <select id="pillarSelect" style="width: 100%; padding: 10px; border: 2px solid #E65100; border-radius: 4px; font-size: 14px;">
+                        <option value="">-- Choose a Pillar --</option>
+                        <option value="tvet">🛠️ TVET</option>
+                        <option value="shs">📚 SHS</option>
+                        <option value="shared">🏢 Shared Services</option>
+                        <option value="corp">🤝 Corporate Foundation</option>
+                        <option value="seaman">⛵ SEAMAN</option>
+                        <option value="coop">🤝 COOP</option>
+                        <option value="manpower">💼 Manpower Agency</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #0D1B3D; font-weight: bold; margin-bottom: 5px;">Current Job Grade:</label>
+                    <select id="currentGrade" style="width: 100%; padding: 10px; border: 2px solid #E65100; border-radius: 4px; font-size: 14px;">
+                        <option value="">-- Select Current Grade --</option>
+                        <option value="JG1">JG1 - Entry Level</option>
+                        <option value="JG2">JG2</option>
+                        <option value="JG3">JG3</option>
+                        <option value="JG4">JG4</option>
+                        <option value="JG5">JG5</option>
+                        <option value="JG6">JG6</option>
+                        <option value="JG7">JG7</option>
+                        <option value="JG8">JG8</option>
+                        <option value="JG9">JG9</option>
+                        <option value="JG10">JG10</option>
+                        <option value="JG11">JG11</option>
+                        <option value="JG12">JG12</option>
+                        <option value="JG13">JG13</option>
+                        <option value="JG14">JG14</option>
+                        <option value="JG15">JG15 - Executive</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #0D1B3D; font-weight: bold; margin-bottom: 5px;">Target Job Grade (in 3-5 years):</label>
+                    <select id="targetGrade" style="width: 100%; padding: 10px; border: 2px solid #E65100; border-radius: 4px; font-size: 14px;">
+                        <option value="">-- Select Target Grade --</option>
+                        <option value="JG1">JG1</option>
+                        <option value="JG2">JG2</option>
+                        <option value="JG3">JG3</option>
+                        <option value="JG4">JG4</option>
+                        <option value="JG5">JG5</option>
+                        <option value="JG6">JG6</option>
+                        <option value="JG7">JG7</option>
+                        <option value="JG8">JG8</option>
+                        <option value="JG9">JG9</option>
+                        <option value="JG10">JG10</option>
+                        <option value="JG11">JG11</option>
+                        <option value="JG12">JG12</option>
+                        <option value="JG13">JG13</option>
+                        <option value="JG14">JG14</option>
+                        <option value="JG15">JG15</option>
+                    </select>
+                </div>
+
+                <button onclick="generateCareerPath()" style="width: 100%; padding: 12px; background-color: #E65100; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer;">Generate My Career Path</button>
+            </div>
+
+            <div id="careerPathResult" style="display: none; background-color: #FEF9F3; padding: 20px; border-radius: 6px; border-left: 5px solid #E65100;">
+                <h3 style="color: #0D1B3D; margin-bottom: 15px;" id="pathTitle"></h3>
+                <div id="pathContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p style="margin: 0;">HCD Career Lattice Live | © 2026 Primary Group of Builders</p>
+        <p style="margin: 5px 0 0 0; opacity: 0.8;">7 Pillars | 5 Job Families | JG1-JG15 | Complete Functional Units</p>
+    </div>
+
+    <script>
+        const data = {
+            tvet: {
+                name: '🛠️ Technical Vocational Education & Training',
+                color: '#E65100',
+                functions: ['Training & Assessment', 'Certification & Documentation'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Training Assistant I', jg: 'JG1', func: 'Training & Assessment' },
+                        { title: 'Training Assistant II', jg: 'JG2', func: 'Training & Assessment' },
+                        { title: 'Training Instructor', jg: 'JG3', func: 'Training & Assessment' },
+                        { title: 'Certification Officer I', jg: 'JG1', func: 'Certification & Documentation' },
+                        { title: 'Certification Officer II', jg: 'JG2', func: 'Certification & Documentation' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Senior Instructor', jg: 'JG4', func: 'Training & Assessment' },
+                        { title: 'Assessment Specialist', jg: 'JG5', func: 'Training & Assessment' },
+                        { title: 'Training Coordinator', jg: 'JG6', func: 'Training & Assessment' },
+                        { title: 'Documentation Specialist', jg: 'JG4', func: 'Certification & Documentation' },
+                        { title: 'Records Manager', jg: 'JG5', func: 'Certification & Documentation' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Lead Training Officer I', jg: 'JG7', func: 'Training & Assessment' },
+                        { title: 'Lead Training Officer II', jg: 'JG8', func: 'Training & Assessment' },
+                        { title: 'Senior Assessment Lead', jg: 'JG9', func: 'Training & Assessment' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Training Supervisor', jg: 'JG10', func: 'Training & Assessment' },
+                        { title: 'Quality Assurance Manager', jg: 'JG11', func: 'Certification & Documentation' },
+                        { title: 'Operations Manager', jg: 'JG12', func: 'Training & Assessment' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Department Head', jg: 'JG13', func: 'Training & Assessment' },
+                        { title: 'Director, TVET', jg: 'JG14', func: 'Strategic' },
+                        { title: 'Executive Director', jg: 'JG15', func: 'Strategic' },
+                    ],
+                }
+            },
+            shs: {
+                name: '📚 Academics - Senior High School',
+                color: '#00B4D8',
+                functions: ['Academic Instruction', 'Students Affairs', 'Guidance & Counseling', 'Learning Resource Center', 'Registrar'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Teacher Assistant I', jg: 'JG1', func: 'Academic Instruction' },
+                        { title: 'Teacher I', jg: 'JG2', func: 'Academic Instruction' },
+                        { title: 'Student Services Officer', jg: 'JG2', func: 'Students Affairs' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Teacher II', jg: 'JG4', func: 'Academic Instruction' },
+                        { title: 'Senior Teacher', jg: 'JG5', func: 'Academic Instruction' },
+                        { title: 'Counselor I', jg: 'JG5', func: 'Guidance & Counseling' },
+                        { title: 'Librarian', jg: 'JG6', func: 'Learning Resource Center' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Lead Teacher', jg: 'JG7', func: 'Academic Instruction' },
+                        { title: 'Senior Counselor', jg: 'JG8', func: 'Guidance & Counseling' },
+                        { title: 'Head Librarian', jg: 'JG9', func: 'Learning Resource Center' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Academic Coordinator', jg: 'JG10', func: 'Academic Instruction' },
+                        { title: 'Student Affairs Manager', jg: 'JG11', func: 'Students Affairs' },
+                        { title: 'Registrar', jg: 'JG12', func: 'Registrar' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Department Head, SHS', jg: 'JG13', func: 'Strategic' },
+                        { title: 'Director, Academics', jg: 'JG14', func: 'Strategic' },
+                        { title: 'Executive Director', jg: 'JG15', func: 'Strategic' },
+                    ],
+                }
+            },
+            shared: {
+                name: '🏢 Shared Services',
+                color: '#06A87D',
+                functions: ['Marketing & Communications', 'Finance & Accounting', 'Human Resources', 'Supply Chain Management', 'Information & Technology'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Communications Assistant', jg: 'JG1', func: 'Marketing & Communications' },
+                        { title: 'Accounting Clerk', jg: 'JG2', func: 'Finance & Accounting' },
+                        { title: 'HR Assistant', jg: 'JG2', func: 'Human Resources' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Marketing Specialist', jg: 'JG4', func: 'Marketing & Communications' },
+                        { title: 'Accountant', jg: 'JG5', func: 'Finance & Accounting' },
+                        { title: 'HR Coordinator', jg: 'JG5', func: 'Human Resources' },
+                        { title: 'Supply Chain Coordinator', jg: 'JG6', func: 'Supply Chain Management' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Lead Marketing Officer', jg: 'JG7', func: 'Marketing & Communications' },
+                        { title: 'Senior Accountant', jg: 'JG8', func: 'Finance & Accounting' },
+                        { title: 'IT Specialist', jg: 'JG8', func: 'Information & Technology' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Communications Manager', jg: 'JG10', func: 'Marketing & Communications' },
+                        { title: 'Finance Manager', jg: 'JG11', func: 'Finance & Accounting' },
+                        { title: 'HR Manager', jg: 'JG12', func: 'Human Resources' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Department Head', jg: 'JG13', func: 'Strategic' },
+                        { title: 'Director', jg: 'JG14', func: 'Strategic' },
+                        { title: 'Executive Director', jg: 'JG15', func: 'Strategic' },
+                    ],
+                }
+            },
+            corp: {
+                name: '🤝 Corporate Foundation',
+                color: '#D62828',
+                functions: ['Projects and Grants', 'Enterprise & Business Development', 'Linkage and Engagement'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Program Assistant', jg: 'JG1', func: 'Projects and Grants' },
+                        { title: 'Project Coordinator I', jg: 'JG2', func: 'Projects and Grants' },
+                        { title: 'Community Liaison Officer', jg: 'JG2', func: 'Linkage and Engagement' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Project Coordinator II', jg: 'JG4', func: 'Projects and Grants' },
+                        { title: 'Business Development Officer', jg: 'JG5', func: 'Enterprise & Business Development' },
+                        { title: 'Engagement Specialist', jg: 'JG6', func: 'Linkage and Engagement' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Lead Project Manager', jg: 'JG7', func: 'Projects and Grants' },
+                        { title: 'Senior Development Officer', jg: 'JG8', func: 'Enterprise & Business Development' },
+                        { title: 'Lead Engagement Officer', jg: 'JG9', func: 'Linkage and Engagement' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Projects Manager', jg: 'JG10', func: 'Projects and Grants' },
+                        { title: 'Business Development Manager', jg: 'JG11', func: 'Enterprise & Business Development' },
+                        { title: 'Partnerships Manager', jg: 'JG12', func: 'Linkage and Engagement' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Department Head', jg: 'JG13', func: 'Strategic' },
+                        { title: 'Director', jg: 'JG14', func: 'Strategic' },
+                        { title: 'Executive Director', jg: 'JG15', func: 'Strategic' },
+                    ],
+                }
+            },
+            seaman: {
+                name: '⛵ SEAMAN',
+                color: '#0066CC',
+                functions: ['(Roles to be added)'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Placeholder Role', jg: 'JG1', func: 'To be updated' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Placeholder Role', jg: 'JG4', func: 'To be updated' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Placeholder Role', jg: 'JG7', func: 'To be updated' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Placeholder Role', jg: 'JG10', func: 'To be updated' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Placeholder Role', jg: 'JG13', func: 'To be updated' },
+                    ],
+                }
+            },
+            coop: {
+                name: '🤝 COOP',
+                color: '#9933CC',
+                functions: ['(Roles to be added)'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Placeholder Role', jg: 'JG1', func: 'To be updated' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Placeholder Role', jg: 'JG4', func: 'To be updated' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Placeholder Role', jg: 'JG7', func: 'To be updated' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Placeholder Role', jg: 'JG10', func: 'To be updated' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Placeholder Role', jg: 'JG13', func: 'To be updated' },
+                    ],
+                }
+            },
+            manpower: {
+                name: '💼 Manpower Agency',
+                color: '#FF6600',
+                functions: ['(Roles to be added)'],
+                families: {
+                    'Specialist (JG1-JG3)': [
+                        { title: 'Placeholder Role', jg: 'JG1', func: 'To be updated' },
+                    ],
+                    'Generalist (JG4-JG6)': [
+                        { title: 'Placeholder Role', jg: 'JG4', func: 'To be updated' },
+                    ],
+                    'Lead (JG7-JG9)': [
+                        { title: 'Placeholder Role', jg: 'JG7', func: 'To be updated' },
+                    ],
+                    'Business Partner (JG10-JG12)': [
+                        { title: 'Placeholder Role', jg: 'JG10', func: 'To be updated' },
+                    ],
+                    'Strategic Partner (JG13-JG15)': [
+                        { title: 'Placeholder Role', jg: 'JG13', func: 'To be updated' },
+                    ],
+                }
+            }
+        };
+
+        let currentPillar = 'tvet';
+        let expandedFamily = null;
+
+        const competencies = {
+            specialist: {
+                title: 'SPECIALIST (JG1-JG3)',
+                duties: 'Work is planned on a day-to-day basis involving routine tasks to be completed efficiently and on time.',
+                responsibilities: [
+                    'Simple issues with supervision readily available',
+                    'Follow procedures for actions to be taken',
+                    'Sole contributor or work as member of team',
+                    'Work with routine processes requiring little training',
+                    'Operate simple equipment'
+                ],
+                accountability: [
+                    'Accountable for processing and maintenance of financial records',
+                    'Take part in work processes with awareness to related activities',
+                    'Work to instructions or standards set',
+                    'Minimal contact with external parties',
+                    'Work within a generally safe and comfortable location'
+                ],
+                competencies: {
+                    'Planning & Organizing': 'Work is planned on a day-to-day basis involving routine tasks to be completed efficiently and on time',
+                    'Problem Solving & Decision Making': 'Simple issues and supervision readily available. Follow procedures for actions to be taken',
+                    'Leadership': 'Sole contributor or work as a member of a team',
+                    'Innovation': 'Work must strictly adhere to standards and procedures',
+                    'Communication': 'Normal interaction with courtesy',
+                    'Customer Focus': 'Contacts with customers requires basic courtesy, provision of accurate information and assistance of a simple nature',
+                    'Business Acumen': 'Understands business fundamentals and practices',
+                    'Scope': 'Activities confined within a work unit',
+                    'Impact': 'No direct influence on end results',
+                    'Complexity': 'Routine work processes with little training required. Operation of simple equipment',
+                    'Revenue Contribution': 'No direct contribution to revenue',
+                    'P/S Delivery': 'No direct contribution to product delivery',
+                    'Financial Control': 'Accountable for processing and maintenance of financial records',
+                    'HR Mgt': 'No responsibility for human resources',
+                    'Process Mgt': 'Take part in work processes with awareness to related activities',
+                    'Authority': 'Work to instructions or standards set',
+                    'Challenges': 'Stable environment with minimal change',
+                    'Presence': 'Minimal contact with external parties of an insignificant nature',
+                    'Conditions': 'Work in a generally safe and comfortable location on normal schedules',
+                    'Safety & Security': 'Work requires general awareness of safety and security related issues',
+                    'Compliance & Standards': 'Adherence to internal policies and procedures. Work to achieve or surpass performance pledge'
+                }
+            },
+            generalist: {
+                title: 'GENERALIST (JG4-JG6)',
+                duties: 'Work with varying tasks to be prioritized and carried out independently within set guidelines.',
+                responsibilities: [
+                    'Routine issues with clear guidelines',
+                    'Guided by procedures but may choose alternatives',
+                    'Leading role with common goals involving cooperation with others',
+                    'Work allows new approach and innovative solutions',
+                    'Effective communication affects end results'
+                ],
+                accountability: [
+                    'Provide supporting services for generating revenue',
+                    'Execution of financial control measures',
+                    'Role to supervise daily work of subordinates',
+                    'Accountable for smooth implementation of standard processes',
+                    'Authority within assigned limits for a small work unit'
+                ],
+                competencies: {
+                    'Planning & Organizing': 'Work with varying tasks to be prioritized and carried out independently within set guidelines',
+                    'Problem Solving & Decision Making': 'Routine issues with clear guidelines. Guided by procedures but may choose alternatives',
+                    'Leadership': 'Leading role for work with common goals involving cooperation with others',
+                    'Innovation': 'Work allows new approach and innovative solutions',
+                    'Communication': 'Effective communication is important and affects end results',
+                    'Customer Focus': 'Direct contact with customers requiring active listening and efficient, timely delivery of services',
+                    'Business Acumen': 'Applies knowledge of industry, market and business trends to prioritize activities',
+                    'Scope': 'Work within a specific area involving others outside own unit',
+                    'Impact': 'Supporting role with minimal impact',
+                    'Complexity': 'Work according to standards and procedures with some training required. Operation of special equipment',
+                    'Revenue Contribution': 'Provide supporting services for generating revenue',
+                    'P/S Delivery': 'Provide supporting services for generating product delivery',
+                    'Financial Control': 'Execution of financial control measures, accounting procedures, petty-cash flow mgt',
+                    'HR Mgt': 'Role to supervise daily work of subordinates, provide on-the-job training, monitor and assess performance',
+                    'Process Mgt': 'Accountable for smooth implementation of standard processes',
+                    'Authority': 'Authority within assigned limits for a small work unit',
+                    'Challenges': 'Changes are tackled with guidance from superiors',
+                    'Presence': 'Positions projecting first impression of organization through own work process',
+                    'Conditions': 'Work in safe location with periodic risks due to travel and unsocial work hours',
+                    'Safety & Security': 'Work involves adherence to safety and security procedures and standards',
+                    'Compliance & Standards': 'Work must be performed with high standards of accuracy for safety, cost and efficiency'
+                }
+            },
+            lead: {
+                title: 'LEAD (JG7-JG9)',
+                duties: 'Planning involves accountability to achieve a specific objective, to be performed by self or work with a team.',
+                responsibilities: [
+                    'Similar issues requiring analysis and search of alternatives',
+                    'Independent judgment within authority and own job scope',
+                    'Lead projects of non-routine nature or business function',
+                    'Set team goals, provide direction, delegate and monitor progress',
+                    'Resolve conflicts of internal and external parties'
+                ],
+                accountability: [
+                    'Accountable for budget preparation and control of expenses for own unit',
+                    'Involved in planning of manpower requirements and staff development',
+                    'Involvement in process improvement',
+                    'Authority within assigned limits for a functional unit',
+                    'Compliance with ethical, legal and professional standards'
+                ],
+                competencies: {
+                    'Planning & Organizing': 'Planning involves accountability to achieve a specific objective, performed by self or work with a team',
+                    'Problem Solving & Decision Making': 'Similar issues requiring analysis and search of alternatives. Independent judgment within authority',
+                    'Leadership': 'Role to lead projects of non-routine nature, setting team goals, providing direction and monitoring progress',
+                    'Innovation': 'Work involves development of new initiatives to enhance efficiency and achieve business goals',
+                    'Communication': 'Major role is to influence and negotiate',
+                    'Customer Focus': 'Work mainly dealing with customer complaints, acting professionally to resolve problems without referral',
+                    'Business Acumen': 'Leverages business sector opportunities and market dynamics to execute strategy',
+                    'Scope': 'Integration of wide spectrum of activities with linkages to other network units',
+                    'Impact': 'Advisory/facilitation role influencing end results',
+                    'Complexity': 'Work within specific scope of function with general guidance. May involve supervising work of others',
+                    'Revenue Contribution': 'Direct interaction with customers to produce revenue',
+                    'P/S Delivery': 'Direct interaction with customers to product delivery',
+                    'Financial Control': 'Accountable for budget preparation and control of expenses for own unit',
+                    'HR Mgt': 'Involved in planning manpower requirements, training and staff development activities',
+                    'Process Mgt': 'Involvement and contribution in process improvement',
+                    'Authority': 'Authority within assigned limits for a functional unit',
+                    'Challenges': 'Creative thinking and adaptability are essential requirements',
+                    'Presence': 'Involvement in development and execution of public relations programs',
+                    'Conditions': 'Work causing certain degree of physical discomfort and mental stress from multiple sources',
+                    'Safety & Security': 'Safety and security a priority in the work process',
+                    'Compliance & Standards': 'Compliance with ethical, legal and professional standards has significant impact'
+                }
+            },
+            businesspartner: {
+                title: 'BUSINESS PARTNER (JG10-JG12)',
+                duties: 'Planning mainly involves an immediate business cycle such as fiscal year or on project basis. Work is organized through leading a team to deliver end results.',
+                responsibilities: [
+                    'Diversified issues requiring significant degree of interpretation and judgment',
+                    'Considerable judgment on issues linking to/impacting other areas',
+                    'Drive a team based culture for significant part of business',
+                    'Constantly demands generation of original ideas and innovative solutions',
+                    'Turn abstract ideas into reality'
+                ],
+                accountability: [
+                    'Manage unit to deliver target revenue',
+                    'Manage unit to product delivery',
+                    'Accountable for overall management of human resources',
+                    'Owner of key processes and change agent for process improvement',
+                    'Represent company as a spokesperson'
+                ],
+                competencies: {
+                    'Planning & Organizing': 'Planning mainly involves immediate business cycle such as fiscal year or project basis',
+                    'Problem Solving & Decision Making': 'Diversified issues requiring significant interpretation and judgment. Considerable judgment impacting other areas',
+                    'Leadership': 'Role to drive a team based culture for significant part of business',
+                    'Innovation': 'Constantly demands generation of original ideas and innovative solutions',
+                    'Communication': 'Work relationships bear significant impact on end results',
+                    'Customer Focus': 'Develop relationships with customers, gather comments and propose measures to enhance services',
+                    'Business Acumen': 'Instills business-oriented mindset that drives organization forward',
+                    'Scope': 'Diverse activities to achieve specific business objectives of functional group',
+                    'Impact': 'Jointly accountable with others to achieve end results',
+                    'Complexity': 'Work requiring understanding of concepts, theories and principles to lead achievement of business goals',
+                    'Revenue Contribution': 'Manage unit to deliver target revenue',
+                    'P/S Delivery': 'Manage unit to product delivery',
+                    'Financial Control': 'Custodian of corporate assets, management of funding activities, assessment of financial viability',
+                    'HR Mgt': 'Accountable for overall management of human resources in a sizeable unit/function',
+                    'Process Mgt': 'Owner of key processes and change agent for process improvement',
+                    'Authority': 'Authority within assigned limits across functional units',
+                    'Challenges': 'Leading role to identify opportunities and threats and manage change',
+                    'Presence': 'Represent company as a spokesperson in specific areas of business',
+                    'Conditions': 'Work causing certain degree of physical discomfort and mental stress from multiple sources (at least 4)',
+                    'Safety & Security': 'Development and monitoring of safety and security related policies and training',
+                    'Compliance & Standards': 'Role to execute standards for compliance and ensure corporate governance'
+                }
+            },
+            strategicpartner: {
+                title: 'STRATEGIC PARTNER (JG13-JG15)',
+                duties: 'Planning is of a strategic nature with long-term business implications. Implementation is usually through delegation and oversight of results.',
+                responsibilities: [
+                    'Broad issues with long term and significant implications',
+                    'Strategic/Directional decisions with significant business impact',
+                    'Responsibility to steer diversified groups and businesses',
+                    'See the big picture and steer development and growth',
+                    'Internal and external relationships at all levels are crucial'
+                ],
+                accountability: [
+                    'Manage number of units accountable for regional revenue income',
+                    'Manage number of units accountable to product delivery',
+                    'Over all control of corporate or unit financial resources',
+                    'Major role in formulating corporate HR strategies',
+                    'Develop standards for compliance and governance'
+                ],
+                competencies: {
+                    'Planning & Organizing': 'Planning is of strategic nature with long-term business implications',
+                    'Problem Solving & Decision Making': 'Broad issues with long term and significant implications. Strategic decisions with business impact',
+                    'Leadership': 'Responsibility to steer diversified groups and businesses',
+                    'Innovation': 'Need to see big picture and steer development and growth',
+                    'Communication': 'Internal and external relationships at all levels are crucial',
+                    'Customer Focus': 'Develop networks and linkages to expand products and services',
+                    'Business Acumen': 'Champions business context as a trusted strategic partner',
+                    'Scope': 'Define goals and strategies and direct activities for broad range of functions or businesses',
+                    'Impact': 'Controlling impact on end results',
+                    'Complexity': 'Define goals and strategies with broad exposure or complex practices',
+                    'Revenue Contribution': 'Manage number of units accountable for regional revenue income',
+                    'P/S Delivery': 'Manage number of units accountable to product delivery',
+                    'Financial Control': 'Over all control of corporate or unit financial resources of significant amounts',
+                    'HR Mgt': 'Major role in formulating corporate strategies for management of human resources',
+                    'Process Mgt': 'Develop policies, processes and standard operating procedures',
+                    'Authority': 'Authority for significant financial and corporate commitments',
+                    'Challenges': 'Pioneering role for business growth under uncontrollable external environment',
+                    'Presence': 'Provide direction on goals, strategies and plans for corporate communication',
+                    'Conditions': 'Work causing certain degree of physical discomfort and mental stress (more than 4 sources)',
+                    'Safety & Security': 'High proficiency to formulate strategies and handle complex safety and security matters',
+                    'Compliance & Standards': 'Develop standards for compliance and ensure corporate governance'
+                }
+            }
+        };
+
+        function renderExplorer() {
+            const pillarData = data[currentPillar];
+            let html = '';
+            
+            for (const [family, roles] of Object.entries(pillarData.families)) {
+                const isExpanded = expandedFamily === family;
+                html += `<div class="family-section">
+                    <div class="family-header" onclick="toggleFamily('${family}')">${family} (${roles.length} roles)</div>`;
+                
+                if (isExpanded) {
+                    html += '<div class="roles-grid">';
+                    roles.forEach(role => {
+                        html += `<div class="role-card">
+                            <div class="role-header">
+                                <h4 class="role-title">${role.title}</h4>
+                                <span class="role-grade">${role.jg}</span>
+                            </div>
+                            <div class="role-function">📌 ${role.func}</div>
+                        </div>`;
+                    });
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+            document.getElementById('explorer-content').innerHTML = html;
+        }
+
+        function renderFunctions() {
+            let html = '';
+            for (const [key, pillar] of Object.entries(data)) {
+                html += `<h3 style="color: #0D1B3D; margin-top: 20px; margin-bottom: 10px;">${pillar.name}</h3>`;
+                pillar.functions.forEach(func => {
+                    html += `<div class="function-box">${func}</div>`;
+                });
+            }
+            document.getElementById('functions-content').innerHTML = html;
+        }
+
+        function renderCompetencies() {
+            let html = '';
+            const families = ['specialist', 'generalist', 'lead', 'businesspartner', 'strategicpartner'];
+            
+            families.forEach(family => {
+                const comp = competencies[family];
+                html += `
+                    <div style="margin-bottom: 30px; border-left: 5px solid #E65100; padding: 15px; background-color: #FEF9F3; border-radius: 6px;">
+                        <h3 style="color: #0D1B3D; margin-top: 0; margin-bottom: 5px;">${comp.title}</h3>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #E65100; font-size: 13px; margin: 10px 0 5px 0;">📋 DUTIES & RESPONSIBILITIES</h4>
+                            <p style="color: #333; font-size: 13px; margin: 5px 0; line-height: 1.5;">${comp.duties}</p>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #E65100; font-size: 13px; margin: 10px 0 5px 0;">✓ ACCOUNTABILITY</h4>
+                            <ul style="color: #333; font-size: 12px; margin: 5px 0; padding-left: 20px;">
+                                ${comp.accountability.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 style="color: #E65100; font-size: 13px; margin: 10px 0 5px 0;">⭐ 21 COMPETENCIES</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px;">
+                                ${Object.entries(comp.competencies).map(([compName, compDesc]) => `
+                                    <div style="border: 1px solid #E65100; border-radius: 4px; padding: 10px; background-color: white;">
+                                        <h5 style="color: #0D1B3D; margin: 0 0 5px 0; font-size: 12px; font-weight: bold;">${compName}</h5>
+                                        <p style="color: #666; font-size: 11px; margin: 0; line-height: 1.4;">${compDesc}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('competencies-framework').innerHTML = html;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.content > div').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tab).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tab === 'functions') {
+                renderFunctions();
+            } else if (tab === 'competencies') {
+                renderCompetencies();
+            }
+        }
+
+        function selectPillar(pillar) {
+            currentPillar = pillar;
+            expandedFamily = null;
+            
+            const pillarData = data[pillar];
+            document.querySelector('.content h2').textContent = pillarData.name;
+            document.querySelector('.content p').textContent = 'Browse all roles by job family with job grades (JG1-JG15)';
+            
+            renderExplorer();
+            
+            document.querySelectorAll('.pillar-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleFamily(family) {
+            expandedFamily = expandedFamily === family ? null : family;
+            renderExplorer();
+        }
+
+        function generateCareerPath() {
+            const pillar = document.getElementById('pillarSelect').value;
+            const current = document.getElementById('currentGrade').value;
+            const target = document.getElementById('targetGrade').value;
+
+            if (!pillar || !current || !target) {
+                alert('Please select all fields to generate your career path');
+                return;
+            }
+
+            const grades = ['JG1', 'JG2', 'JG3', 'JG4', 'JG5', 'JG6', 'JG7', 'JG8', 'JG9', 'JG10', 'JG11', 'JG12', 'JG13', 'JG14', 'JG15'];
+            const currentIdx = grades.indexOf(current);
+            const targetIdx = grades.indexOf(target);
+
+            if (currentIdx >= targetIdx) {
+                alert('Target grade must be higher than current grade');
+                return;
+            }
+
+            const pillarData = data[pillar];
+            const steps = targetIdx - currentIdx;
+            const yearsPerStep = Math.ceil(3 / steps);
+
+            let html = '<h4 style="color: #0D1B3D; margin-bottom: 10px;">Your Career Path</h4>';
+            html += `<p style="color: #666; margin-bottom: 15px;">From ${current} to ${target} (${steps} grade(s) over 3-5 years)</p>`;
+
+            for (let i = currentIdx; i <= targetIdx; i++) {
+                const grade = grades[i];
+                const year = Math.floor((i - currentIdx) * yearsPerStep) + 1;
+                const status = i === currentIdx ? '(Current)' : i === targetIdx ? '(Target)' : '';
+                
+                html += `
+                    <div style="padding: 10px; background-color: white; border-left: 5px solid #E65100; margin-bottom: 10px;">
+                        <strong style="color: #0D1B3D;">${grade}</strong> 
+                        <span style="color: #666; font-size: 12px;">Year ${year} ${status}</span>
+                    </div>
+                `;
+            }
+
+            html += '<div style="margin-top: 15px; padding: 15px; background-color: white; border-radius: 4px; border-left: 5px solid #06A87D;">';
+            html += '<p style="color: #0D1B3D; font-weight: bold; margin-bottom: 8px;">💡 Success Tips:</p>';
+            html += '<ul style="color: #666; font-size: 13px; margin: 0; padding-left: 20px;">';
+            html += '<li>Complete relevant training for each grade level</li>';
+            html += '<li>Develop competencies aligned with your target role</li>';
+            html += '<li>Seek mentorship from senior staff</li>';
+            html += '<li>Review progress annually with your manager</li>';
+            html += '</ul>';
+            html += '</div>';
+
+            document.getElementById('pathTitle').textContent = `Career Path: ${pillarData.name}`;
+            document.getElementById('pathContent').innerHTML = html;
+            document.getElementById('careerPathResult').style.display = 'block';
+        }
+
+        renderExplorer();
+    </script>
+</body>
+</html>
